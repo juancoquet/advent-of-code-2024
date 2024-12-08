@@ -12,7 +12,7 @@ def part_2(locations_a: list[int], locations_b: list[int]) -> int:
     return sum(a * b_count.get(a, 0) for a in locations_a)
 
 
-def read_inputs() -> tuple[list[int], list[int]]:
+def _read_inputs() -> tuple[list[int], list[int]]:
     with open("advent_of_code/day_01/inputs.txt", "r") as f:
         data = [[int(i) for i in line.split()] for line in f.readlines()]
     locations_a, locations_b = map(list, zip(*data))
@@ -20,6 +20,6 @@ def read_inputs() -> tuple[list[int], list[int]]:
 
 
 if __name__ == "__main__":
-    locations_a, locations_b = read_inputs()
+    locations_a, locations_b = _read_inputs()
     print(part_1(locations_a, locations_b))
     print(part_2(locations_a, locations_b))

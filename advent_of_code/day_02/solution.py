@@ -12,25 +12,25 @@ class Report(list[int]):
         for i in range(1, len(self)):
             left, right = self[i - 1], self[i]
             if i == 1:
-                ascending = is_ascending(left, right)
-            if not is_safe_jump(left, right) or not ascending == is_ascending(left, right):
+                ascending = _is_ascending(left, right)
+            if not _is_safe_jump(left, right) or not ascending == _is_ascending(left, right):
                 return False
         return True
+
+
+def _is_ascending(a: int, b: int) -> bool:
+    return a < b
+
+
+def _is_safe_jump(a: int, b: int) -> bool:
+    return 0 < abs(a - b) <= 3
 
 
 def part_1(reports: list[Report]) -> int:
     return sum(report.is_safe() for report in reports)
 
 
-def is_ascending(a: int, b: int) -> bool:
-    return a < b
-
-
-def is_safe_jump(a: int, b: int) -> bool:
-    return 0 < abs(a - b) <= 3
-
-
-def read_inputs() -> list[Report]:
+def _read_inputs() -> list[Report]:
     with open("advent_of_code/day_02/inputs.txt", "r") as f:
         raw_data = f.read().strip()
     return parse_data(raw_data)
@@ -41,6 +41,6 @@ def parse_data(raw_data: str) -> list[Report]:
 
 
 if __name__ == "__main__":
-    inputs = read_inputs()
+    inputs = _read_inputs()
     print(inputs)
     print(part_1(inputs))
