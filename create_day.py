@@ -70,7 +70,7 @@ def create(day: int):
         f.write(TEMPLATE_TEST.format(day=f"{day:02d}").strip())
 
 
-def get_inputs(day: int):
+def get_inputs(day: int) -> str:
     url = f"https://adventofcode.com/2024/day/{day}/input"
     inputs = requests.get(url, cookies={"session": str(SESSION)})
     return inputs.text

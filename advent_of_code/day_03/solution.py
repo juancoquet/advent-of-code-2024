@@ -6,9 +6,9 @@ from rich import print
 
 
 class Operation(Enum):
-    DO = (0,)
-    DONT = (1,)
-    MUL = (2,)
+    DO = 0
+    DONT = 1
+    MUL = 2
 
 
 @dataclass
