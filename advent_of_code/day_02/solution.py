@@ -1,6 +1,6 @@
-from rich import print
-
 from itertools import pairwise
+
+from rich import print
 
 
 class Report(list[int]):
