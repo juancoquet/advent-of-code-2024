@@ -2,6 +2,7 @@ from enum import Enum
 from rich import print
 
 XMAS = "XMAS"
+MAS = "MAS"
 
 
 DIRECTIONS = {
@@ -20,15 +21,19 @@ def part_1(inputs: list[list[str]]) -> int:
     hits = 0
     for r in range(len(inputs)):
         for c in range(len(inputs[r])):
-            hits += _search(r, c, inputs)
+            hits += _search_xmas(r, c, inputs)
     return hits
 
 
-def part_2(inputs: list[list[str]]):
-    pass
+def part_2(inputs: list[list[str]]) -> int:
+    hits = 0
+    for r in range(len(inputs)):
+        for c in range(len(inputs[r])):
+            hits += _search_x_mas(r, c, inputs)
+    return hits
 
 
-def _search(r: int, c: int, inputs: list[list[str]]) -> int:
+def _search_xmas(r: int, c: int, inputs: list[list[str]]) -> int:
     if not inputs[r][c] == XMAS[0]:
         return 0
     hits = 0
@@ -44,6 +49,34 @@ def _search(r: int, c: int, inputs: list[list[str]]) -> int:
         hits += int(direction_hit)
         curr_r, curr_c = r, c
     return hits
+
+
+def _search_x_mas(r: int, c: int, inputs: list[list[str]]) -> int:
+    if not inputs[r][c] == MAS[1]:
+        return 0
+
+    dir_complements = [
+        (DIRECTIONS["UL"], DIRECTIONS["DR"]),
+        (DIRECTIONS["UR"], DIRECTIONS["DL"]),
+        (DIRECTIONS["DL"], DIRECTIONS["UR"]),
+        (DIRECTIONS["DR"], DIRECTIONS["UL"]),
+    ]
+
+    curr_r, curr_c = r, c
+    hits = 0
+    for start_dir, (x, y) in dir_complements:
+        curr_r += start_dir[0]
+        curr_c += start_dir[1]
+        direction_hit = False
+        for i, char in enumerate(MAS):
+            if _is_out_of_bounds(curr_r, curr_c, inputs) or not inputs[curr_r][curr_c] == char:
+                break
+            direction_hit = i == len(MAS) - 1
+            curr_r += x
+            curr_c += y
+        hits += int(direction_hit)
+        curr_r, curr_c = r, c
+    return int(hits == 2)  # 2 hits in an X shape
 
 
 def _is_out_of_bounds(r: int, c: int, inputs: list[list[str]]) -> bool:
