@@ -7,18 +7,18 @@ class Report(list[int]):
     def __init__(self, vector: list[int]):
         if len(vector) < 2:
             raise ValueError("Report must have at least two levels.")
-        self.ascending = _is_ascending(vector[0], vector[1])
+        self.is_ascending = _is_ascending(vector[0], vector[1])
         super().__init__(vector)
 
     def is_safe(self) -> bool:
         for left, right in pairwise(self):
-            if not _is_safe_jump(left, right) or not self.ascending == _is_ascending(left, right):
+            if not _is_safe_jump(left, right) or not self.is_ascending == _is_ascending(left, right):
                 return False
         return True
 
     def is_safe_dampened(self) -> bool:
         for left, right in pairwise(self):
-            if not _is_safe_jump(left, right) or not self.ascending == _is_ascending(left, right):
+            if not _is_safe_jump(left, right) or not self.is_ascending == _is_ascending(left, right):
                 return any(Report(self[:i] + self[i + 1 :]).is_safe() for i, _ in enumerate(self))
         return True
 
