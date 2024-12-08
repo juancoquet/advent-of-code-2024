@@ -1,6 +1,6 @@
 import pytest
 
-from advent_of_code.day_02.solution import Report, parse_data, part_1
+from advent_of_code.day_02.solution import Report, parse_data, part_1, part_2
 
 
 def test_part_1():
@@ -15,6 +15,21 @@ def test_part_1():
     exp = 2
 
     res = part_1(reports)
+    assert res == exp
+
+
+def test_part_2():
+    reports = [
+        Report([7, 6, 4, 2, 1]),
+        Report([1, 2, 7, 8, 9]),
+        Report([9, 7, 6, 2, 1]),
+        Report([1, 3, 2, 4, 5]),
+        Report([8, 6, 4, 4, 1]),
+        Report([1, 3, 6, 7, 9]),
+    ]
+    exp = 4
+
+    res = part_2(reports)
     assert res == exp
 
 
