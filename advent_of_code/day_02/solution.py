@@ -11,14 +11,14 @@ class Report(list[int]):
         super().__init__(vector)
 
     def is_safe(self) -> bool:
-        for left, right in pairwise(self):
-            if not _is_safe_jump(left, right) or not self.is_ascending == _is_ascending(left, right):
+        for lft, rgt in pairwise(self):
+            if not _is_safe_jump(lft, rgt) or not self.is_ascending == _is_ascending(lft, rgt):
                 return False
         return True
 
     def is_safe_dampened(self) -> bool:
-        for left, right in pairwise(self):
-            if not _is_safe_jump(left, right) or not self.is_ascending == _is_ascending(left, right):
+        for lft, rgt in pairwise(self):
+            if not _is_safe_jump(lft, rgt) or not self.is_ascending == _is_ascending(lft, rgt):
                 return any(Report(self[:i] + self[i + 1 :]).is_safe() for i, _ in enumerate(self))
         return True
 
