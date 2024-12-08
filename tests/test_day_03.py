@@ -8,4 +8,7 @@ def test_part_1():
     assert res == exp
 
 def test_part_2():
-    pass
+    instructions = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
+    exp = 48
+    res = part_2(instructions)
+    assert res == exp
