@@ -13,7 +13,21 @@ class InstructionSet(list[int]):
 
 
 def part_1(rules: list[Rule], instructions: list[InstructionSet]) -> int:
-    return -1
+    # an instruction set is valid if none of the numbers appear in an order that violates a rule
+    valid_mids: list[int] = []
+    for inst in instructions:
+        relevant_rules = [r for r in rules if r.x in inst and r.y in inst]
+        is_valid = True
+
+        for rule in relevant_rules:
+            if inst.index(rule.x) >= inst.index(rule.y):
+                is_valid = False
+
+        if is_valid:
+            mid = inst[len(inst) // 2]
+            valid_mids.append(mid)
+
+    return sum(valid_mids)
 
 
 def part_2(rules: list[Rule], instructions: list[InstructionSet]) -> int:
