@@ -9,7 +9,10 @@ def test_part_1():
 
 
 def test_part_2():
-    pass
+    rules, instructions = get_test_data()
+    exp = 123
+    res = part_2(rules, instructions)
+    assert res == exp
 
 
 def test_parse_data():

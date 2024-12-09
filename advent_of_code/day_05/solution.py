@@ -20,7 +20,7 @@ def part_1(rules: list[Rule], instructions: list[InstructionSet]) -> int:
         is_valid = True
 
         for rule in relevant_rules:
-            if inst.index(rule.x) >= inst.index(rule.y):
+            if not _is_valid_instruction(inst, rule):
                 is_valid = False
 
         if is_valid:
@@ -31,7 +31,28 @@ def part_1(rules: list[Rule], instructions: list[InstructionSet]) -> int:
 
 
 def part_2(rules: list[Rule], instructions: list[InstructionSet]) -> int:
-    return -1
+    valid_mids: list[int] = []
+    for inst in instructions:
+        relevant_rules = sorted(
+            [r for r in rules if r.x in inst and r.y in inst], key=lambda r: inst.index(r.x)
+        )
+        if all(_is_valid_instruction(inst, rule) for rule in relevant_rules):
+            continue
+
+        for rule in relevant_rules:
+            if (x := inst.index(rule.x)) >= (y := inst.index(rule.y)):
+                out_of_place = inst.pop(x)
+                pre, post = inst[:y], inst[y:]
+                inst = pre + [out_of_place] + post
+
+        mid = inst[len(inst) // 2]
+        valid_mids.append(mid)
+
+    return sum(valid_mids)
+
+
+def _is_valid_instruction(instruction: InstructionSet, rule: Rule) -> bool:
+    return instruction.index(rule.x) < instruction.index(rule.y)
 
 
 def parse_data(raw_data: str) -> tuple[list[Rule], list[InstructionSet]]:
