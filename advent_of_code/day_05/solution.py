@@ -12,12 +12,12 @@ class InstructionSet(list[int]):
     pass
 
 
-def part_1(inputs):
-    pass
+def part_1(rules: list[Rule], instructions: list[InstructionSet]) -> int:
+    return -1
 
 
-def part_2(inputs):
-    pass
+def part_2(rules: list[Rule], instructions: list[InstructionSet]) -> int:
+    return -1
 
 
 def parse_data(raw_data: str) -> tuple[list[Rule], list[InstructionSet]]:
@@ -27,13 +27,13 @@ def parse_data(raw_data: str) -> tuple[list[Rule], list[InstructionSet]]:
     return rules, instructions
 
 
-def _read_inputs():
+def _read_inputs() -> tuple[list[Rule], list[InstructionSet]]:
     with open("advent_of_code/day_05/inputs.txt", "r") as f:
         raw_data = f.read().strip()
     return parse_data(raw_data)
 
 
 if __name__ == "__main__":
-    inputs = _read_inputs()
-    print(part_1(inputs))
-    print(part_2(inputs))
+    rules, instructions = _read_inputs()
+    print(part_1(rules, instructions))
+    print(part_2(rules, instructions))
