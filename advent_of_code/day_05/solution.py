@@ -1,4 +1,16 @@
+from dataclasses import dataclass
 from rich import print
+
+
+@dataclass
+class Rule:
+    x: int
+    y: int
+
+
+class InstructionSet(list[int]):
+    pass
+
 
 def part_1(inputs):
     pass
@@ -8,8 +20,11 @@ def part_2(inputs):
     pass
 
 
-def parse_data(raw_data: str):
-    pass
+def parse_data(raw_data: str) -> tuple[list[Rule], list[InstructionSet]]:
+    rules_str, inst_str = raw_data.split("\n\n")
+    rules = [Rule(*map(int, rule.split("|"))) for rule in rules_str.split("\n")]
+    instructions = [InstructionSet(map(int, inst.split(","))) for inst in inst_str.split("\n")]
+    return rules, instructions
 
 
 def _read_inputs():
